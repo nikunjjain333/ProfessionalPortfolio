@@ -17,12 +17,12 @@ This is a full-stack portfolio web application built for Nikunj Jain, a Software
 - **Animations**: Framer Motion for smooth transitions
 
 ### Backend Architecture
-- **Runtime**: Node.js with Express.js framework
-- **Language**: TypeScript with ES modules
-- **Database ORM**: Drizzle ORM configured for PostgreSQL
-- **Database Provider**: Neon Database (serverless PostgreSQL)
-- **Session Management**: PostgreSQL session store with connect-pg-simple
-- **API Design**: RESTful endpoints with JSON responses
+- **Runtime**: Python with FastAPI framework
+- **Language**: Python 3.11 with async/await
+- **Database ORM**: SQLAlchemy with Alembic migrations
+- **Database Provider**: PostgreSQL with asyncpg driver
+- **Session Management**: JWT tokens for authentication
+- **API Design**: RESTful endpoints with automatic OpenAPI documentation
 
 ### Data Storage Solution
 - **Primary Database**: PostgreSQL via Neon Database serverless
