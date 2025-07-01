@@ -25,10 +25,10 @@ This is a full-stack portfolio web application built for Nikunj Jain, a Software
 - **API Design**: RESTful endpoints with automatic OpenAPI documentation
 
 ### Data Storage Solution
-- **Primary Database**: PostgreSQL via Neon Database serverless
-- **ORM**: Drizzle ORM with migration support
-- **Schema Validation**: Zod schemas for runtime type checking
-- **Session Storage**: Database-backed sessions for scalability
+- **Primary Database**: PostgreSQL with asyncpg driver
+- **ORM**: SQLAlchemy with async support and Alembic migrations
+- **Schema Validation**: Pydantic models for request/response validation
+- **Database Sessions**: Async SQLAlchemy sessions with proper connection pooling
 
 ## Key Components
 
@@ -38,8 +38,12 @@ This is a full-stack portfolio web application built for Nikunj Jain, a Software
 - **Migration System**: Drizzle Kit for database schema versioning
 
 ### API Endpoints
-- `POST /api/contact`: Handles contact form submissions with validation
-- `GET /api/resume/download`: Placeholder for resume download functionality
+- `POST /api/contact`: Handles contact form submissions with Pydantic validation
+- `GET /api/contact`: Retrieves contact messages (admin functionality)
+- `GET /api/resume/download`: Resume download endpoint
+- `GET /api/health`: Health check endpoint
+- `GET /docs`: Auto-generated FastAPI documentation
+- `GET /redoc`: Interactive API documentation
 
 ### Portfolio Sections
 - **Navigation**: Responsive navigation with smooth scrolling
