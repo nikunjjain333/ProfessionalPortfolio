@@ -18,6 +18,8 @@ build/
 __pycache__/
 **/__pycache__/
 */__pycache__/
+backend/app/api/__pycache__/
+*.pyc
 *.py[cod]
 *$py.class
 *.so
