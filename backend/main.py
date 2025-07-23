@@ -2,12 +2,13 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.ext.asyncio import AsyncSession
-from database import get_db, engine, Base
-from models import ContactMessage, User
-from schemas import ContactMessageCreate, ContactMessage as ContactMessageSchema, MessageResponse
-import crud
+from app.db.database import get_db, engine, Base
+from app.models.models import ContactMessage, User
+from app.schemas.schemas import ContactMessageCreate, ContactMessage as ContactMessageSchema, MessageResponse
+import app.crud.crud as crud
 import uvicorn
 from contextlib import asynccontextmanager
+from app.core.config import settings
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -32,43 +33,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# API Routes
-@app.post("/api/contact", response_model=MessageResponse)
-async def create_contact_message(
-    contact_data: ContactMessageCreate,
-    db: AsyncSession = Depends(get_db)
-):
-    try:
-        await crud.create_contact_message(db, contact_data)
-        return MessageResponse(
-            success=True,
-            message="Message sent successfully! Thank you for reaching out."
-        )
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to send message. Please try again later."
-        )
-
-@app.get("/api/contact", response_model=list[ContactMessageSchema])
-async def get_contact_messages(
-    skip: int = 0,
-    limit: int = 100,
-    db: AsyncSession = Depends(get_db)
-):
-    messages = await crud.get_contact_messages(db, skip=skip, limit=limit)
-    return messages
-
-@app.get("/api/resume/download")
-async def download_resume():
-    return MessageResponse(
-        success=True,
-        message="Resume download functionality will be implemented here"
-    )
-
-@app.get("/api/health")
-async def health_check():
-    return {"status": "healthy", "message": "Portfolio API is running"}
+# Include API routes
+from app.api.routes import router as api_router
+app.include_router(api_router, prefix="/api")
 
 # Serve static files (React build) - only if directory exists
 import os
