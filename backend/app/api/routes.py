@@ -1,8 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import FileResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.database import get_db
 from app.schemas.schemas import ContactMessageCreate, ContactMessage, MessageResponse
 import app.crud.crud as crud
+import os
 
 router = APIRouter()
 
@@ -34,9 +36,18 @@ async def get_contact_messages(
 
 @router.get("/resume/download")
 async def download_resume():
-    return MessageResponse(
-        success=True,
-        message="Resume download functionality will be implemented here"
+    resume_path = "../frontend/public/nikunjjain.pdf"
+    
+    if not os.path.exists(resume_path):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Resume file not found"
+        )
+    
+    return FileResponse(
+        path=resume_path,
+        filename="Nikunj_Jain_Resume.pdf",
+        media_type="application/pdf"
     )
 
 @router.get("/health")
