@@ -6,9 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Github, Linkedin, Send } from "lucide-react";
-import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
 import { motion } from "framer-motion";
+import emailjs from '@emailjs/browser';
 
 interface ContactForm {
   name: string;
@@ -25,26 +24,9 @@ const ContactSection = () => {
     subject: "",
     message: ""
   });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const contactMutation = useMutation({
-    mutationFn: (data: ContactForm) => apiRequest("POST", "/api/contact", data),
-    onSuccess: () => {
-      toast({
-        title: "Message sent successfully!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
-      });
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    },
-    onError: () => {
-      toast({
-        title: "Failed to send message",
-        description: "Please try again later or contact me directly via email.",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.name || !formData.email || !formData.subject || !formData.message) {
@@ -56,7 +38,40 @@ const ContactSection = () => {
       return;
     }
 
-    contactMutation.mutate(formData);
+    setIsLoading(true);
+
+    try {
+      // EmailJS configuration - you'll need to replace these with your actual IDs
+      const serviceId = 'service_8ykhoig'; // Replace with your EmailJS service ID
+      const templateId = 'template_72sours'; // Replace with your EmailJS template ID  
+      const publicKey = 'YlzrlvpuCOTozVk_U'; // Replace with your EmailJS public key
+
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_email: 'nikunjjain333@gmail.com', // Your email address
+      };
+
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      
+      toast({
+        title: "Message sent successfully!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
+      });
+      
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      toast({
+        title: "Failed to send message",
+        description: "Please try again later or contact me directly at nikunjjain333@gmail.com",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleInputChange = (field: keyof ContactForm, value: string) => {
@@ -214,10 +229,10 @@ const ContactSection = () => {
               
               <Button
                 type="submit"
-                disabled={contactMutation.isPending}
+                disabled={isLoading}
                 className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50"
               >
-                {contactMutation.isPending ? (
+                {isLoading ? (
                   "Sending..."
                 ) : (
                   <>
