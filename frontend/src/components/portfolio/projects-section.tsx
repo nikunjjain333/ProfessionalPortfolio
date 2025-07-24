@@ -18,7 +18,7 @@ const ProjectsSection = () => {
     {
       title: "Research Publications",
       description: "Authored and published research papers on CPU scheduling algorithms and home security using machine learning. Presented at ECBI-2020 conference.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=300",
+      image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=300",
       technologies: ["Research", "Machine Learning", "Academic Writing"],
       status: "Published",
       statusIcon: <Book className="mr-1 h-4 w-4" />,
