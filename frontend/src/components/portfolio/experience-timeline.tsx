@@ -37,7 +37,7 @@ const ExperienceTimeline = () => {
       color: "bg-cyan-500",
       achievements: [
         "Developed ACH-based payment APIs for high-risk cannabis merchants",
-        "Built dashboard UI using React.js for merchant onboarding workflows",
+        "Built dashboard UI using React.ts for merchant onboarding workflows",
         "Engineered OFAC data processing for KYC verification and fraud prevention"
       ]
     },
