@@ -4,33 +4,17 @@ import { scrollToSection } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 const HeroSection = () => {
-  const handleDownloadResume = async () => {
-    try {
-      const response = await fetch('/api/resume/download');
-      
-      if (response.ok) {
-        // Create blob from response
-        const blob = await response.blob();
-        
-        // Create download link
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'Nikunj_Jain_Resume.pdf';
-        
-        // Trigger download
-        document.body.appendChild(link);
-        link.click();
-        
-        // Cleanup
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
-      } else {
-        console.error("Failed to download resume: Server error");
-      }
-    } catch (error) {
-      console.error("Failed to download resume:", error);
-    }
+  const handleDownloadResume = () => {
+    // Create download link for static PDF file
+    const link = document.createElement('a');
+    link.href = '/nikunjjain.pdf';
+    link.download = 'Nikunj_Jain_Resume.pdf';
+    link.target = '_blank';
+    
+    // Trigger download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleGetInTouch = () => {

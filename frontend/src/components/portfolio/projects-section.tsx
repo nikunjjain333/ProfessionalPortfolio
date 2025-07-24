@@ -109,7 +109,19 @@ const ProjectsSection = () => {
                       </>
                     )}
                     {project.title === "Research Publications" && (
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => {
+                          const link = document.createElement('a');
+                          link.href = '/linkedin_resume.pdf';
+                          link.download = 'Nikunj_Jain_Research_Papers.pdf';
+                          link.target = '_blank';
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                        }}
+                      >
                         <Download className="mr-2 h-4 w-4" />
                         Download Papers
                       </Button>
