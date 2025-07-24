@@ -6,7 +6,7 @@ const AboutSection = () => {
     { value: "27+", label: "U.S. States Supported" },
     { value: "3+", label: "Years Experience" },
     { value: "2", label: "Research Papers" },
-    { value: "5+", label: "Certifications" },
+    { value: "2+", label: "Certifications" },
   ];
 
   return (

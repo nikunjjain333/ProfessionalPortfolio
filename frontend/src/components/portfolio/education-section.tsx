@@ -31,18 +31,6 @@ const EducationSection = () => {
       icon: "☁️",
       color: "text-blue-500"
     },
-    {
-      name: "Infrastructure as Code",
-      description: "Terraform/CloudFormation",
-      icon: "🏗️",
-      color: "text-purple-500"
-    },
-    {
-      name: "Kubernetes (EKS)",
-      description: "Container Orchestration",
-      icon: "⚙️",
-      color: "text-blue-600"
-    }
   ];
 
   return (
