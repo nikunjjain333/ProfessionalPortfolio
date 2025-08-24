@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 
 const AboutSection = () => {
   const stats = [
-    { value: "27+", label: "U.S. States Supported" },
     { value: "3+", label: "Years Experience" },
     { value: "2", label: "Research Papers" },
     { value: "2+", label: "Certifications" },
